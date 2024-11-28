@@ -1,5 +1,4 @@
-const fs = require("fs");
-
+import fs from "fs";
 const requestHandler = (req, res) => {
   const url = req.url;
   const method = req.method;
@@ -41,4 +40,4 @@ const requestHandler = (req, res) => {
   res.end();
 };
 
-module.exports = requestHandler;
+export default requestHandler;
