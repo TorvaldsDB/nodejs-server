@@ -1,14 +1,11 @@
-import bodyParser from "body-parser";
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-import adminRoutes from "./routes/admin.js";
-import shopRoutes from "./routes/shop.js";
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 const app = express();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

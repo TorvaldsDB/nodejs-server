@@ -1,10 +1,7 @@
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+const express = require("express");
+const path = require("path");
 
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 router.get("/add-product", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
@@ -15,4 +12,4 @@ router.post("/product", (req, res, next) => {
   res.redirect("/");
 });
 
-export default router;
+module.exports = router;
