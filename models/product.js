@@ -1,4 +1,6 @@
-const products = [];
+const fs = require("fs");
+const path = require("path");
+const rootDir = require("../util/path");
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
@@ -9,18 +11,29 @@ module.exports = class Product {
   }
 
   save() {
-    // const db = require("../util/database");
-    // return db.execute(
-    //   "INSERT INTO products (title, imageUrl, description, price) VALUES (?, ?, ?, ?)",
-    //   [this.title, this.imageUrl, this.description, this.price]
-    // );
-
-    products.push(this);
+    const p = path.join(rootDir, "data", "products.json");
+    fs.readFile(p, (err, fileContent) => {
+      let products = [];
+      if (err) {
+        products = [];
+      } else {
+        products = JSON.parse(fileContent);
+      }
+      products.push(this);
+      fs.writeFile(p, JSON.stringify(products), (err) => {
+        console.log(err);
+      });
+    });
   }
 
-  static fetchAll() {
-    // const db = require("../util/database");
-    // return db.execute("SELECT * FROM products");
-    return products;
+  static fetchAll(cb) {
+    const p = path.join(rootDir, "data", "products.json");
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        cb([]);
+      }
+      const products = JSON.parse(fileContent);
+      cb(products);
+    });
   }
 };
